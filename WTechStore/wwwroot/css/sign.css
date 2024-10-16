@@ -1,0 +1,139 @@
+/*--signup page start here--*/
+.signup-page-main {
+    padding: 9em 0em;
+}
+.signup-main {
+    width: 50%;
+    margin: 0 auto;
+    background: #FFFFFF;
+    background-size: cover;
+    min-height: 400px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.15);
+}
+.signup-head {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.signup-head img{
+    height: 150px;
+}
+.signup-head h1 {
+    font-size:3em;
+    color:#FFF;
+    padding: 1em 0em 0em 0em;
+    text-align: center;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+.signup-block {
+    padding: 4em 2em;
+}
+.signup-block input[type="text"], .signup-block input[type="password"] {
+    font-size: 0.9em;
+    padding: 10px 20px;
+    width: 100%;
+    color:#686967;
+    outline: none;
+    border: 1px solid #D3D3D3;   
+     border-radius: 5px;
+	-ms-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+    background:#F5F5F5;
+    margin: 0em 0em 1.5em 0em;
+}
+.signup-block input[type="submit"] {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #fff;
+    background: #337AB7;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 3px;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    display: block;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+.signup-block input[type="submit"]:hover{
+	background:#68AE00;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all ;
+	-ms-transition: 0.5s all;
+}
+.sign-down h4 {
+    font-size: 1em;
+    color: #000;
+    text-align: center;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+.sign-down h4 a {
+    font-size: 1em;
+    color: #000;
+    text-align: center;
+    margin-top: 1em;
+    display: inline-block;;
+}
+.sign-down h4 a:hover{
+	color:#68AE00;
+}
+.sign-down h5 {
+    font-size: 1em;
+    text-align: center;
+    margin-top: 1em;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+.sign-down h5 a {
+    color: #337AB7;
+    text-decoration: underline;
+}.sign-down h5 a:hover {
+    color:#68AE00;
+}
+/* Responsive adjustments for small devices */
+@media only screen and (max-width: 768px) {
+    .signup-main {
+        width: 80%; /* Reduce the width for smaller screens */
+    }
+    .signup-block {
+        padding: 2em 1em; /* Reduce padding to fit smaller screens */
+    }
+    .signup-head img {
+        height: 100px; /* Reduce the logo size */
+    }
+    .signup-block input[type="text"], .signup-block input[type="password"] {
+        padding: 8px 15px; /* Adjust padding for input fields */
+    }
+    .signup-block input[type="submit"] {
+        padding: 0.4em 0.8em; /* Adjust button size */
+        font-size: 0.9em;
+    }
+    .sign-down h4, .sign-down h5 {
+        font-size: 0.9em; /* Adjust text size */
+    }
+}
+
+/* Further adjustments for extra small devices (phones) */
+@media only screen and (max-width: 480px) {
+    .signup-main {
+        width: 90%; /* Further reduce the width */
+    }
+    .signup-block {
+        padding: 1em 0.5em; /* Further reduce padding */
+    }
+    .signup-head img {
+        height: 80px; /* Further reduce logo size */
+    }
+    .signup-block input[type="text"], .signup-block input[type="password"] {
+        padding: 5px 10px; /* Reduce input padding */
+    }
+    .signup-block input[type="submit"] {
+        padding: 0.3em 0.6em; /* Adjust button size further */
+        font-size: 0.8em;
+    }
+    .sign-down h4, .sign-down h5 {
+        font-size: 0.8em; /* Further reduce text size */
+    }
+}

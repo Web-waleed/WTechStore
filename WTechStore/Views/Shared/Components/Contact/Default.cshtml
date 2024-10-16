@@ -1,0 +1,38 @@
+﻿  @model IEnumerable<Contact>
+ <!--  contact -->
+      <div class="contact" id="conta">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Contact Now</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-10 offset-md-1">
+                <form asp-action="Index" asp-controller="Contacts" asp-area="Dashboard" id="request" class="main_form" method="post">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input class="contactus" placeholder="Name" type="text" name="Name" required>
+                        </div>
+                        <div class="col-md-12">
+                            <input class="contactus" placeholder="Email" type="email" name="Email" required>
+                        </div>
+                        <div class="col-md-12">
+                            <input class="contactus" placeholder="Phone Number" type="text" name="PhoneNumber" required>
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="textarea" placeholder="Message" name="Message" required></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="send_btn">Send</button>
+                        </div>
+                    </div>
+                </form>
+
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end contact -->

@@ -1,0 +1,33 @@
+﻿@model WTechStore.Models.product
+@{
+    ViewData["Title"] = "ProductDetails";
+   
+}
+<head>
+    <link rel="stylesheet" href="~/css/product.css">
+</head>
+
+<!-- Product Section -->
+<div class="product-container container">
+    <!-- Image Slider -->
+    <div class="image-slider">
+        <div class="slides">
+            <img id="slide1" src="@Model.ProductIMg" alt="@Model.ProductName" class="slide active">
+            <img id="slide2" src="@Model.ProductIMg" alt="@Model.ProductName" class="slide">
+            <img id="slide3" src="@Model.ProductIMg" alt="@Model.ProductName" class="slide">
+        </div>
+        <!-- Navigation Buttons -->
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <!-- Product Information -->
+    <div class="product-info">
+        <h1 id="product-name">@Model.ProductName</h1>
+        <p id="product-description">@Model.ProductDescription</p>
+        <p class="price" id="product-price">$@Model.ProductPrice</p>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" value="1" min="1">
+        <button id="add-to-cart-btn" class="btn">Add to Cart</button>
+    </div>
+</div>

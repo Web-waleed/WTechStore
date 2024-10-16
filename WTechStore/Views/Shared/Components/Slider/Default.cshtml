@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Slider>
+ <!-- banner -->
+      <section class="banner_main">
+         <div id="banner1" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+               <li data-target="#banner1" data-slide-to="0" class="active"></li>
+               <li data-target="#banner1" data-slide-to="1"></li>
+               <li data-target="#banner1" data-slide-to="2"></li>
+               <li data-target="#banner1" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner">
+          
+                <div class="carousel-item active">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-md-6">
+                                    <div class="text-bg">
+                                        <span>@item.SliderTitle</span>
+                                        <h1>@item.SliderDesc</h1>
+                                        <p> </p>
+                                        <a asp-action="Computer" asp-controller="Home">@item.btnTxt </a> <a href="#conta">Contact </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text_img">
+                                        <figure><img src="@item.SliderImg " height="500" width="500" alt="#" /></figure>
+                                    </div>
+                            
+                                </div>
+                            }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+               
+              
+               
+            </div>
+            <a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </a>
+            <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </a>
+         </div>
+      </section>
+      <!-- end banner -->

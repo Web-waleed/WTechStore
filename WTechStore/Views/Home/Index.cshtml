@@ -1,0 +1,64 @@
+﻿@model CategoryProductDataModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+@await Component.InvokeAsync("Slider")
+<!-- three_box -->
+      <div class="three_box">
+         <h1 style="font-weight: bolder;" class="container">Categories</h1>
+         <div class="container">
+
+        <div class="row">
+            @foreach (var item in Model.categories)
+            {
+                <div class="col-md-4">
+                    <div class="box_text">
+                        <a asp-action="Computer" asp-controller="Home">
+                            <i><img src="@item.CategoryImg" alt="@item.CategoryName" width="100" height="100"  /></i>
+                            <h3>@item.CategoryName</h3>
+                            <p> </p>
+                        </a>
+
+                    </div>
+                </div>
+            }
+            </div>
+         </div>
+      </div>
+      <!-- three_box -->
+<!-- products -->
+<div class="container">
+    <header class="heead">
+        <h1 class="title">best seller &#128293; &#128293;</h1>
+
+    </header>
+    <div class="listProduct">
+    </div>
+</div>
+<!-- Product Section -->
+<section class="container product-list">
+    <div class="row">
+        @foreach (var item in Model.products)
+        {
+            <div class="col-md-4 product" data-id="@item.ProductId">
+                <a asp-action="ProductDetails" asp-controller="Home" asp-route-id="@item.ProductId">
+                    <img src="@item.ProductIMg" alt="@item.ProductName">
+                    <h2>@item.ProductName</h2>
+                    <p>Price: $@item.ProductPrice</p>
+                </a>
+                <button class="wishlist-btn"><i class="fa-solid fa-heart"></i></button>
+                <button class="cart-btn">Add to Cart</button>
+              
+            </div>
+        }
+    </div>
+  
+</section>
+
+
+<br>
+<!-- end products -->
+@await Component.InvokeAsync("advertisement")
+@await Component.InvokeAsync("Feedback")
+ @await Component.InvokeAsync("Contact") 
+

@@ -1,0 +1,44 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="~/css/login.css">
+<div class="login-page">
+	<div class="login-main">
+		<div class="login-head">
+			<img class="lg" src="~/./Logo W Tech-Store/fulllogo_transparent_nobuffer.png" alt="#" />
+		</div>
+		<div class="login-block">
+			<form asp-action="Login" asp-controller="Account" method="post">
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<input asp-for="Email" type="text" placeholder="Email" required="">
+				<span asp-validation-for="Email"></span>
+				<input asp-for="Password" class="lock" placeholder="Password">
+				<span asp-validation-for="Password"></span>
+				<div class="forgot-top-grids">
+					<div class="forgot-grid">
+
+						<input  asp-for="RememberMe" value="">
+						<label asp-for="RememberMe" ><span></span>Remember me</label>
+
+					</div>
+
+					<div class="clearfix"> </div>
+				</div>
+				<input type="submit" name="Sign In" value="Login">
+				<h3>
+					Not a member?
+					<a asp-action="Register" asp-controller="Account"> Sign up now</a>
+				</h3>
+			</form>
+			<h5><a asp-action="Index" asp-controller="Home">Go Back to Home</a></h5>
+		</div>
+	</div>
+</div>
+<!--inner block end here-->
+<!--copy rights start here-->
+<div class="copyrights">
+	<p>© 2024 All Rights Reserved. W Tech-Store </p>
+</div>
+<!--COPY rights end here-->

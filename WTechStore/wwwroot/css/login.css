@@ -1,0 +1,156 @@
+/*--login page--*/
+.login-main {
+   
+    width: 50%;
+    margin: 0 auto;
+    background: #FFFFFF;
+    background-size: cover;
+    min-height: 400px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.15);
+}
+.login-page {
+    padding: 6.5em 0em;
+}
+.login-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-head img {
+    height: 150px;
+}
+
+.login-head h1 {
+    font-size: 3em;
+    color: #FFF;
+    padding: 1em 0em 0em 0em;
+    text-align: center;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+.login-block {
+    padding: 4em 2em;
+}
+.login-block input[type="text"], 
+.login-block input[type="password"] {
+    font-size: 0.9em;
+    padding: 10px 20px;
+    width: 100%;
+    color: #8C8C8C;
+    outline: none;
+    border: 1px solid #D3D3D3;   
+    border-radius: 5px;
+    background: #F5F5F5;
+    margin: 0em 0em 1.5em 0em;
+}
+.login-block input[type="submit"] {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #fff;
+    background: #337AB7;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 3px;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    display: block;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+.login-block input[type="submit"]:hover {
+    background: #68AE00;
+    transition: 0.5s all;
+}
+.forgot-top-grids {
+    margin: 1em 0em;
+    padding: 0em 1.5em;
+}
+.forgot-grid ul li input[type="checkbox"] + label span:first-child {
+    width: 17px;
+    height: 17px;
+    border: 2px solid #FC8213;
+}
+
+/* Media Queries for Responsive Design */
+
+/* For tablets and small devices */
+@media (max-width: 768px) {
+    .login-main {
+        width: 80%; /* Increase width for better readability on small screens */
+    }
+    
+    .login-head img {
+        height: 100px; /* Reduce logo size for smaller screens */
+    }
+    
+    .login-page {
+        padding: 4em 0em;
+    }
+    
+    .login-block {
+        padding: 2em 1em; /* Reduce padding for smaller screens */
+    }
+    
+    .login-head h1 {
+        font-size: 2em; /* Decrease font size */
+    }
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+    .login-main {
+        width: 95%; /* Almost full width for mobile */
+    }
+    
+    .login-block input[type="text"], 
+    .login-block input[type="password"] {
+        font-size: 0.8em; /* Reduce input text size for smaller screens */
+        padding: 8px 15px; /* Adjust padding for mobile */
+    }
+    
+    .login-block input[type="submit"] {
+        padding: 0.4em 1em;
+        font-size: 0.9em; /* Adjust button size */
+    }
+    
+    .login-head img {
+        height: 80px; /* Further reduce logo size */
+    }
+    
+    .login-head h1 {
+        font-size: 1.5em; /* Decrease font size */
+    }
+    
+    .login-page {
+        padding: 2em 0em; /* Less padding for mobile */
+    }
+}
+
+/* Adjusting input field and button sizes for larger screens */
+@media (min-width: 1200px) {
+    .login-main {
+       
+        width: 50%;; /* Slightly narrower for large screens */
+    }
+    
+    .login-head img {
+        height: 180px; /* Slightly larger logo for larger screens */
+    }
+    
+    .login-block {
+        padding: 5em 3em; /* Increase padding for large screens */
+    }
+    
+    .login-block input[type="text"], 
+    .login-block input[type="password"] {
+        font-size: 1em; /* Larger input text size */
+    }
+    
+    .login-block input[type="submit"] {
+        font-size: 1.1em; /* Larger submit button */
+    }
+    
+    .login-head h1 {
+        font-size: 3.5em; /* Increase font size */
+    }
+}

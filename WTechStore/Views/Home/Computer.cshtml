@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WTechStore.Models.product>
+
+@{
+    ViewData["Title"] = "Computer";
+}
+
+<!-- products -->
+<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <div style="background-color: #4843a3; border-radius:10px  ; font-size: larger; font-weight: bolder;" class="p-3 mb-2 bg text-white">
+                        <img src="./images/thr.png" alt=""> Computer
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav justify-content-center nav-tabs Switcher">
+                    <li class="nav-item activen" data-cat=".all">
+                        <button class="nav-link">All</button>
+                    </li>
+                    <li class="nav-item" data-cat=".devices">
+                        <button class="nav-link">devices</button>
+                    </li>
+                    <li class="nav-item" data-cat=".Accessories">
+                        <button class="nav-link">Accessories</button>
+                    </li>
+                </ul>
+                <div class="our_products">
+                    <div class="row">
+                        @foreach (var item in Model) 
+                        {
+                            <div class="col-md-4 product all devices" data-cat="devices" data-id="@item.ProductId">
+                                <a asp-action="ProductDetails" asp-controller="Home" asp-route-id="@item.ProductId">
+                                    <img src="@item.ProductIMg" alt="@item.ProductName" />
+                                    <h2>@item.ProductDescription</h2>
+                                    <p>Price: $@item.ProductPrice</p>
+                                </a>
+                                <button class="wishlist-btn">Add to Wishlist</button>
+                                <button class="cart-btn">Add to Cart</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end products -->
+    <script>
+        $(document).ready(function () {
+            // When a category button is clicked
+            $('.nav-item').on('click', function () {
+                // Get the category to filter
+                var selectedCategory = $(this).attr('data-cat');
+
+                // Remove 'activen' class from all buttons and add it to the clicked one
+                $('.nav-item').removeClass('activen');
+                $(this).addClass('activen');
+
+                // If 'All' is selected, show all products
+                if (selectedCategory === '.all') {
+                    $('.product').show();
+                } else {
+                    // Hide all products
+                    $('.product').hide();
+
+                    // Show products that match the selected category
+                    $('.product' + selectedCategory).show();
+                }
+            });
+        });
+</script>

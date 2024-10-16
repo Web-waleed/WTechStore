@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="./Logo W Tech-Store/icononly_transparent_nobuffer.png" type="x-icon" title="Atom">
+  <title>cla</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+      /* General Styles */
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+      h1, h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Cart Section */
+      .cart {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+      }
+      table th, table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      table th {
+        background-color: #f1f1f1;
+        font-weight: bold;
+      }
+      table img {
+        max-width: 80px;
+        border-radius: 5px;
+      }
+      table td {
+        vertical-align: middle;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px 0;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
+      .btn-clear, .btn-checkout {
+        width: 100%;
+        max-width: 180px;
+        margin-right: 10px;
+      }
+
+      /* Responsive Grid Layout */
+      .cart-items, .checkout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* Checkout Form */
+      .checkout-form {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        animation: slideDown 0.5s ease-out;
+      }
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .checkout-form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+      }
+      .checkout-form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+      .payment-methods {
+        margin-bottom: 15px;
+      }
+      .payment-methods input {
+        margin-right: 10px;
+      }
+      .checkout-form button {
+        width: 100%;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .checkout-form button:hover {
+        background-color: #218838;
+      }
+  </style>
+</head>
+<body>
+
+<!-- Cart Section -->
+<section class="cart container">
+  <h1>Your Cart</h1>
+  <table class="table" id="cart-items">
+      <thead>
+          <tr>
+              <th>Image</th>
+              <th>Product Name</th>
+             
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th> <!-- New column for quantity * price -->
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          <!-- Cart items will be dynamically inserted here -->
+      </tbody>
+  </table>
+  <div class="cart-actions">
+      <button class="btn btn-clear" id="clear-cart">Clear Cart</button>
+      <a asp-action="index" class="btn">Back to Products</a>
+      <button class="btn btn-checkout" id="checkout-btn">Proceed to Checkout</button>
+  </div>
+
+  <!-- Total Price -->
+  <div id="total-price" style="text-align: center; font-weight: bold; margin-top: 20px;">
+      Total: $<span id="total-price-value">0.00</span>
+  </div>
+
+  <!-- Checkout Form Section (Initially Hidden) -->
+  <section id="checkout-section" class="checkout container" style="display:none;">
+      <h2>Checkout Form</h2>
+      <form id="checkout-form" class="checkout-form">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" required>
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" required>
+          <label for="address">Shipping Address:</label>
+          <input type="text" id="address" name="address" required>
+
+          <!-- Payment Method Selection -->
+          <div class="payment-methods">
+              <label>Payment Method:</label>
+              <input type="radio" id="credit-card" name="payment-method" value="credit-card" required>
+              <label for="credit-card">Credit Card</label>
+              <input type="radio" id="cash" name="payment-method" value="cash" required>
+              <label for="cash">Cash</label>
+          </div>
+
+          <!-- Credit Card Information (only shown when Credit Card is selected) -->
+          <div id="credit-card-info" style="display: none;">
+              <label for="card-number">Card Number:</label>
+              <input type="text" id="card-number" name="card-number" required placeholder="Enter your card number">
+              <label for="expiry-date">Expiry Date:</label>
+              <input type="text" id="expiry-date" name="expiry-date" required placeholder="MM/YY">
+              <label for="cvv">CVV:</label>
+              <input type="text" id="cvv" name="cvv" required placeholder="Enter CVV">
+          </div>
+
+          <button type="submit">Place Order</button>
+      </form>
+  </section>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    
+  </script>
+</body>
+</html>

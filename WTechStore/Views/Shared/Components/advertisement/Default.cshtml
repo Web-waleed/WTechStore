@@ -1,0 +1,31 @@
+﻿@model IEnumerable<advertisement>
+ 
+<!-- laptop  section -->
+<div class="laptop">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6">
+                    <div class="titlepage">
+                        <p>@item.adsName </p>
+                        <h2>
+                            @item.adstitle
+                            <p><S></S><b>$@item.adsprice &#128293;</b></p>
+                        </h2>
+                        <a asp-action="Computer" asp-controller="Home">Shop Now</a>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="laptop_box">
+                        <figure><img src="@item.adsimg" alt="#" /></figure>
+                    </div>
+                </div>
+            }
+               
+        </div>
+    </div>
+</div>
+<!-- end laptop  section -->

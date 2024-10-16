@@ -1,0 +1,18 @@
+﻿@model List<product>
+@{
+    ViewData["Title"] = "Compare";
+}
+<section class="comparison">
+    <h1>Product Comparison</h1>
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 compare-product">
+                <img src="@product.ProductIMg" alt="@product.ProductName">
+                <h2>@product.ProductName</h2>
+                <p>Price: $@product.ProductPrice</p>
+                <p>@product.ProductDescription</p>
+            </div>
+        }
+    </div>
+</section>

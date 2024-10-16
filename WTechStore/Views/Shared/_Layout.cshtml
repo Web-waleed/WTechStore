@@ -1,0 +1,232 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- SEO Meta Tags -->
+    <title>W Tech-Store Platform - Everything a gamer needs</title>
+    <meta name="description" content=" W Tech-Store is a specialized platform that offers the latest and best tech products for gamers. The platform aims to meet all the needs of gaming enthusiasts by providing a wide variety of electronic devices, including desktop and laptop computers, smartphones, and advanced gaming consoles. " />
+    <meta name="keywords" content="Gaming products
+Tech store for gamers
+Gaming devices
+High-quality gaming gear
+Desktop computers for gamers
+Laptop computers for gaming
+Gaming consoles
+Gaming accessories
+Advanced gaming technology
+Gamers' marketplace
+Gaming PCs
+Video game devices
+Gaming platform
+Electronics for gamers
+Latest gaming tech
+Gamer support services
+Gaming store online
+Gaming hardware
+Cutting-edge gaming gear
+Gaming innovation" />
+   
+
+    <!-- Open Graph / Social Media Tags -->
+    <meta property="og:title" content="W Tech-Store Platform - Everything a gamer needs" />
+    <meta property="og:description" content="W Tech-Store offers everything gamers need, including high-quality desktops, laptops, consoles, and accessories, with a focus on the latest technology and exceptional customer service.
+
+" />
+    
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="W Tech-Store Platform - Everything a gamer needs" />
+    <meta name="twitter:description" content="W Tech-Store offers everything gamers need, including high-quality desktops, laptops, consoles, and accessories, with a focus on the latest technology and exceptional customer service." />
+
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourwebsite.com" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://yourwebsite.com/path-to-favicon.ico" />
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <link rel="shortcut icon" href="~/./Logo W Tech-Store/icononly_transparent_nobuffer.png" type="x-icon" title="Atom">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>@ViewData["Title"] - W Tech-Store</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="~/css/sign.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="~/images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="main-layout contai">
+    <!-- Loader -->
+    <div class="loader_bg">
+        <div class="loader"><img src="~/images/loading.gif" alt="#" /></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="headeru">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <a asp-action="Index" asp-controller="Home">
+                                    <img class="lg img-fluid" src="~/./Logo W Tech-Store/fulllogo_transparent_nobuffer.png" alt="#" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-6">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarResponsive">
+                                <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" asp-action="index" asp-controller="Home">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="AboutUs" asp-controller="Home">About</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="Blog" asp-controller="Home">Blog</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="Index" asp-controller="Home">Contact Us</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link wishlist-icon" asp-action="WishList" asp-controller="Home">
+                                            <i class="fas fa-heart"></i>
+                                            <span id="wishlist-count">0</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link cart-icon" asp-action="Cart" asp-controller="Home">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span id="cart-count">0</span>
+                                        </a>
+                                    </li>
+                                    @if (signInManager.IsSignedIn(User))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="Logout" asp-controller="Account">
+                                                <i class="fa-solid fa-right-from-bracket"></i> | @User.Identity!.Name
+                                            </a>
+                                        </li>
+                                        @if (User.IsInRole("admin"))
+                                        {
+                                            <li class="nav-item">
+                                                <a class="nav-link" asp-action="RolesList" asp-controller="Account">
+                                                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="Dashboard">
+                                                    <i class="fa-solid fa-user-tie"></i>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="Login" asp-controller="Account">
+                                                <i class="fa-solid fa-user"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div>
+        @RenderBody();
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                        <img class="logo1 img-fluid" src="~/./Logo W Tech-Store/fulllogo_transparent_nobuffer.png" alt="#" />
+                        <ul class="social_icon">
+                            <li><a href="#"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <h3>About Us</h3>
+                        <p>The W Tech-Store website aims to be a premier platform for selling electronic devices, offering a wide selection of reliable, cutting-edge products from top global brands, catering to customers' needs for computers, accessories, and gaming devices.</p>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                        <form class="bottom_form">
+                            <h3>Newsletter</h3>
+                            <input class="enter form-control" placeholder="Enter your email" type="text" name="Enter your email">
+                            <button class="sub_btn btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>© 2024 All Rights Reserved. W Tech-Store</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Javascript files-->
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.0.0.min.js"></script>
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="~/js/app.js"></script>
+    <script src="~/js/WishList.js"></script>
+    <script src="~/js/cart.js"></script>
+    <script src="~/js/product.js"></script>
+    <script src="~/js/compare.js"></script>
+</body>
+</html>

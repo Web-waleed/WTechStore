@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WTechStore.Models.Slider>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table id="my-table" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SliderTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SliderDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SliderImg)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SliderTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SliderDesc)
+            </td>
+            <td>
+                    <img src="@item.SliderImg" alt="@item.SliderTitle" class="img-fluid" style="width:100px;height:100px" />
+                </td>
+           
+            <td>
+                    <a class="btn btn-warning" asp-action="Edit" method="post"  asp-route-id="@item.SliderId">Edit</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.SliderId">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete"  asp-route-id="@item.SliderId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
