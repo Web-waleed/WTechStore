@@ -3,7 +3,7 @@ using WTechStore.Models.CommonProp;
 
 namespace WTechStore.Models
 {
-    public class Slider : SharedProp
+    public class Slider 
     {
         public int SliderId { get; set; }
         public String SliderTitle { get; set; }

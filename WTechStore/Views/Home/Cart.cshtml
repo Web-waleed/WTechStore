@@ -1,7 +1,5 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Cart";
-    
 }
 
 <!DOCTYPE html>
@@ -49,25 +47,25 @@
             border-collapse: collapse;
         }
 
-            table th, table td {
-                padding: 15px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-            table th {
-                background-color: #f1f1f1;
-                font-weight: bold;
-            }
+        table th {
+            background-color: #f1f1f1;
+            font-weight: bold;
+        }
 
-            table img {
-                max-width: 80px;
-                border-radius: 5px;
-            }
+        table img {
+            max-width: 80px;
+            border-radius: 5px;
+        }
 
-            table td {
-                vertical-align: middle;
-            }
+        table td {
+            vertical-align: middle;
+        }
 
         .btn {
             display: inline-block;
@@ -81,9 +79,9 @@
             transition: background-color 0.3s ease;
         }
 
-            .btn:hover {
-                background-color: #0056b3;
-            }
+        .btn:hover {
+            background-color: #0056b3;
+        }
 
         .btn-clear, .btn-checkout {
             width: 100%;
@@ -106,18 +104,14 @@
         }
 
         keyframes slideDown {
-            from
-
-        {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .checkout-form label {
@@ -139,9 +133,9 @@
             margin-bottom: 15px;
         }
 
-            .payment-methods input {
-                margin-right: 10px;
-            }
+        .payment-methods input {
+            margin-right: 10px;
+        }
 
         .checkout-form button {
             width: 100%;
@@ -154,9 +148,9 @@
             transition: background-color 0.3s ease;
         }
 
-            .checkout-form button:hover {
-                background-color: #218838;
-            }
+        .checkout-form button:hover {
+            background-color: #218838;
+        }
 
         .quantity-input {
             width: 60px;
@@ -194,28 +188,27 @@
         </div>
 
         <!-- Checkout Form Section -->
-        <!-- Checkout Form Section -->
         <section id="checkout-section" class="checkout container" style="display:none;">
             <h2>Checkout Form</h2>
             <form id="checkout-form" class="checkout-form" asp-action="SubmitOrder" asp-controller="Orders" asp-area="Dashboard" method="post">
                 @Html.AntiForgeryToken()
                 <label for="name">Full Name:</label>
-                <input type="text" id="name" name="FullName"  placeholder="Enter your full name">
+                <input type="text" id="name" name="FullName" placeholder="Enter your full name">
 
                 <label for="email">Email Address:</label>
-                <input type="email" id="email" name="Email"  placeholder="Enter your email address">
+                <input type="email" id="email" name="Email" placeholder="Enter your email address">
 
                 <label for="phone-number">Phone Number:</label>
-                <input type="text" id="phone-number" name="PhoneNumber"  placeholder="Enter your phone number">
+                <input type="text" id="phone-number" name="PhoneNumber" placeholder="Enter your phone number">
 
                 <label for="address">Shipping Address:</label>
-                <input type="text" id="address" name="Address"  placeholder="Enter your shipping address">
+                <input type="text" id="address" name="Address" placeholder="Enter your shipping address">
 
                 <div class="payment-methods">
                     <label>Payment Method:</label>
-                    <input type="radio" id="credit-card" name="PaymentMethod" value="credit-card" >
+                    <input type="radio" id="credit-card" name="PaymentMethod" value="credit-card">
                     <label for="credit-card">Credit Card</label>
-                    <input type="radio" id="cash" name="PaymentMethod" value="cash" >
+                    <input type="radio" id="cash" name="PaymentMethod" value="cash">
                     <label for="cash">Cash</label>
                 </div>
 
@@ -230,28 +223,28 @@
                     <input type="text" id="cvv" name="CVV" placeholder="Enter CVV">
                 </div>
 
-                <button type="submit"  class="btn" >Save </button>
+                <button type="submit" class="btn">Save</button>
             </form>
         </section>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/cart.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const creditCardRadio = document.getElementById('credit-card');
-                const cashRadio = document.getElementById('cash');
-                const creditCardInfo = document.getElementById('credit-card-info');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const creditCardRadio = document.getElementById('credit-card');
+            const cashRadio = document.getElementById('cash');
+            const creditCardInfo = document.getElementById('credit-card-info');
 
-                creditCardRadio.addEventListener('change', function () {
-                    if (creditCardRadio.checked) {
-                        creditCardInfo.style.display = 'block'; // Show card info
-                    }
-                });
-
-                cashRadio.addEventListener('change', function () {
-                    creditCardInfo.style.display = 'none'; // Hide card info
-                });
+            creditCardRadio.addEventListener('change', function () {
+                if (creditCardRadio.checked) {
+                    creditCardInfo.style.display = 'block'; // Show card info
+                }
             });
-        </script>
+
+            cashRadio.addEventListener('change', function () {
+                creditCardInfo.style.display = 'none'; // Hide card info
+            });
+        });
+    </script>
 </body>
 </html>

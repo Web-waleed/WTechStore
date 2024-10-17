@@ -21,18 +21,18 @@ public class ContactsController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.contacts.Add(contact);  // Make sure this DbSet is named "contacts"
+            _context.contacts.Add(contact);  
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));  // Redirect to a Success page
+            return RedirectToAction(nameof(Index));  
         }
 
-        return View(contact);  // Return the form with validation errors if invalid
+        return View(contact); 
     }
 
 
     public async Task<IActionResult> Messages()
     {
-        var contacts = await _context.contacts.ToListAsync();  // Fetches all contacts.
+        var contacts = await _context.contacts.ToListAsync();  
         return View(contacts);
     }
 
@@ -41,13 +41,13 @@ public class ContactsController : Controller
         var contact = await _context.contacts.FindAsync(id);
         if (contact == null)
         {
-            return NotFound();  // Return NotFound if contact doesn't exist.
+            return NotFound(); 
         }
 
         _context.contacts.Remove(contact);
         await _context.SaveChangesAsync();
 
-        return RedirectToAction("Messages");  // Redirect back to Messages after deletion.
+        return RedirectToAction("Messages");  
     }
 
     

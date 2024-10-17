@@ -3,7 +3,7 @@ using WTechStore.Models.CommonProp;
 
 namespace WTechStore.Models
 {
-    public class Category : SharedProp
+    public class Category 
     {
         public int CategoryId { get; set; }
         public string? CategoryName { get; set; }

@@ -3,7 +3,7 @@ using WTechStore.Models.CommonProp;
 
 namespace WTechStore.Models
 {
-    public class Feedback : SharedProp
+    public class Feedback 
     {
         public int FeedbackId { get; set; }
         public String FeedbackName { get; set; }

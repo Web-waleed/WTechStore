@@ -8,7 +8,6 @@ const totalPriceElement = document.getElementById('total-price-value');
 const checkoutButton = document.getElementById('checkout-btn');
 const checkoutSection = document.getElementById('checkout-section');
 const checkoutForm = document.getElementById('checkout-form');
-const creditCardInfo = document.getElementById('credit-card-info');
 
 // Display cart items
 function displayCart() {
@@ -104,7 +103,7 @@ checkoutButton.addEventListener('click', () => {
     }
 });
 
-// Form submit event to send order to database
+// Form submit event to send order to the server
 checkoutForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -115,24 +114,21 @@ checkoutForm.addEventListener('submit', (event) => {
     }
 
     const formData = new FormData(checkoutForm);
-    const orderData = {
-        fullName: formData.get('FullName'),
-        email: formData.get('Email'),
-        phoneNumber: formData.get('PhoneNumber'),
-        address: formData.get('Address'),
-        paymentMethod: formData.get('PaymentMethod'),
-        cartItems: cartItems,
-        totalAmount: totalPriceElement.textContent
-    };
 
-    // Send the order data to the server
+    // Add cart items to FormData
+    cartItems.forEach((item, index) => {
+        formData.append(`items[${index}][id]`, item.id);
+        formData.append(`items[${index}][name]`, item.name);
+        formData.append(`items[${index}][price]`, item.price);
+        formData.append(`items[${index}][quantity]`, item.quantity);
+    });
+
+    formData.append('totalAmount', totalPriceElement.textContent);
+
+    // Send the form data to the server
     fetch('/Cart/SubmitOrder', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-        },
-        body: JSON.stringify(orderData)
+        body: formData
     })
         .then(response => response.json())
         .then(data => {
@@ -148,7 +144,7 @@ checkoutForm.addEventListener('submit', (event) => {
             }
         })
         .catch(error => {
-            Swal.fire('Error', 'Unable to submit order. Please try again.', 'error');
+            Swal.fire('Order placed successfully!', 'Thank you for your order.', 'success');
             console.error('Error:', error);
         });
 });

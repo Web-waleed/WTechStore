@@ -4,7 +4,7 @@ using WTechStore.Models.CommonProp;
 
 namespace WTechStore.Models
 {
-    public class advertisement : SharedProp
+    public class advertisement 
     {
         public int Id { get; set; }
         [Required]
