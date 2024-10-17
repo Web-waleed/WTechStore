@@ -33,9 +33,9 @@ namespace WTechStore.Controllers
             if (data == null) { return RedirectToAction("Index"); }
             return View(data);
         }
-        public IActionResult Computer()
+        public IActionResult Computer(int? id)
         {
-            var products = db.products.ToList();
+            var products = db.products.ToList().Where(x=>x.CategoryId == id);
             return View(products);
         }
         public IActionResult Cart() { 

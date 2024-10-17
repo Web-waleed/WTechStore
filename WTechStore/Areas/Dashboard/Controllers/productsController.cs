@@ -55,7 +55,7 @@ namespace WTechStore.Areas.Dashboard.Controllers
             return View(product);
         }
 
-        // GET: Dashboard/products/Create
+ 
         // GET: Dashboard/products/Create
         public IActionResult Create()
         {
