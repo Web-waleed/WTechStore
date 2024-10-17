@@ -5,6 +5,7 @@ using WTechStore.Data;
 
 namespace WTechStore.Areas.Dashboard.Controllers
 {
+    [Area("Dashboard")]
     [Authorize(Roles ="admin")]
     public class HomeController : Controller
     {
@@ -13,7 +14,7 @@ namespace WTechStore.Areas.Dashboard.Controllers
         {
             this.context = context;
         }
-        [Area("Dashboard")]
+       
         public IActionResult Index()
         {
             ViewBag.TotalProducts=context.products.Count();
