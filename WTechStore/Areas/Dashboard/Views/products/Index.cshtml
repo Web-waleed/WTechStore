@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
@@ -24,9 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ProductIMg)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
+           
           
             <th></th>
         </tr>
@@ -34,6 +35,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
@@ -46,9 +50,7 @@
                 <td>
                     <img src="@item.ProductIMg" alt="@item.ProductIMg" class="img-fluid" style="width:100px;height:100px" />
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
+           
          
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |

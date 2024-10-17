@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WTechStore.Data;
 
@@ -11,9 +12,11 @@ using WTechStore.Data;
 namespace WTechStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241017104729_gyhj")]
+    partial class gyhj
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,7 +174,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WTechStore.Models.Contact", b =>
@@ -203,7 +206,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("contacts", (string)null);
+                    b.ToTable("contacts");
                 });
 
             modelBuilder.Entity("WTechStore.Models.Feedback", b =>
@@ -224,7 +227,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("FeedbackId");
 
-                    b.ToTable("feedbacks", (string)null);
+                    b.ToTable("feedbacks");
                 });
 
             modelBuilder.Entity("WTechStore.Models.Order", b =>
@@ -260,7 +263,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("WTechStore.Models.OrderItem", b =>
@@ -288,7 +291,7 @@ namespace WTechStore.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("WTechStore.Models.Slider", b =>
@@ -316,7 +319,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("SliderId");
 
-                    b.ToTable("Sliders", (string)null);
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("WTechStore.Models.ViewModels.ApplicationUser", b =>
@@ -420,7 +423,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("advertisements", (string)null);
+                    b.ToTable("advertisements");
                 });
 
             modelBuilder.Entity("WTechStore.Models.product", b =>
@@ -454,7 +457,7 @@ namespace WTechStore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("products", (string)null);
+                    b.ToTable("products");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
