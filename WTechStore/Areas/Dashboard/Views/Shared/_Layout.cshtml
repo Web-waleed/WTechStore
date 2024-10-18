@@ -193,10 +193,19 @@
                                                    class="form-control" />
                                         </div>
                                     </form>
+                                   
                                 </ul>
                             </li>
-
-                            <a class="dropdown-item" asp-action="Logout" asp-controller="Account" asp-area="">Logout</a>
+                            <ul>
+                                <li>
+                                    <a asp-action="Index" asp-controller="Home" asp-area="">Home</a>
+                                </li>
+                                <li> 
+                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account" asp-area="">Logout</a>
+                                    </li>
+                            </ul>
+                           
+                         
                        
 
                             <li class="nav-item topbar-user dropdown hidden-caret">

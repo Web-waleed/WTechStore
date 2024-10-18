@@ -34,7 +34,7 @@ namespace WTechStore.Areas.Dashboard.Controllers
                   
                     OrderItems = order.CartItems.Select(c => new OrderItem
                     {
-                        OrderItemId = c.Quantity,
+                       
                         Quantity = c.Quantity,
                         Price = c.Price
                     }).ToList()

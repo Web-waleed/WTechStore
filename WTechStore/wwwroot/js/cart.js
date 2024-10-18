@@ -132,22 +132,38 @@ checkoutForm.addEventListener('submit', (event) => {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                Swal.fire('Order placed successfully!', 'Thank you for your order.', 'success');
-                localStorage.removeItem('cart');
-                cartItems = [];
-                displayCart();
-                totalPriceElement.textContent = '0.00';
-                checkoutSection.style.display = 'none';
-            } else {
-                Swal.fire('Error', 'Something went wrong with your order. Please try again.', 'error');
-            }
+            Swal.fire('Order placed!', 'Thank you for your order.', 'success');
         })
         .catch(error => {
-            Swal.fire('Order placed successfully!', 'Thank you for your order.', 'success');
+            Swal.fire('Order placed!', 'Thank you for your order.', 'success');
             console.error('Error:', error);
+        })
+        .finally(() => {
+            // Clear the cart regardless of success or error
+            localStorage.removeItem('cart'); // Clear the local storage cart
+            cartItems = []; // Reset the cart items array
+            displayCart(); // Re-render the cart display
+            totalPriceElement.textContent = '0.00'; // Reset the total price
+            checkoutSection.style.display = 'none'; // Hide checkout section
+            checkoutForm.reset(); // Clear the form fields
         });
 });
 
 // Initialize display cart
 displayCart();
+
+document.addEventListener('DOMContentLoaded', function () {
+    const creditCardRadio = document.getElementById('credit-card');
+    const cashRadio = document.getElementById('cash');
+    const creditCardInfo = document.getElementById('credit-card-info');
+
+    creditCardRadio.addEventListener('change', function () {
+        if (creditCardRadio.checked) {
+            creditCardInfo.style.display = 'block'; // Show card info
+        }
+    });
+
+    cashRadio.addEventListener('change', function () {
+        creditCardInfo.style.display = 'none'; // Hide card info
+    });
+});

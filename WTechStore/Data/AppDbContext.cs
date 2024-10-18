@@ -11,12 +11,12 @@ namespace WTechStore.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
         public DbSet<advertisement> advertisements { get; set; }
         public DbSet<Category> Categories { get; set; }
-       
+     
         public DbSet<product> products { get; set; }
         public DbSet<Feedback> feedbacks { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Contact>contacts { get; set; }
-
+        public DbSet<Cart> carts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
