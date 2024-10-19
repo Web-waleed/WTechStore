@@ -1,5 +1,8 @@
 ﻿@{
+    ViewData["Title"] = "Success";
     Layout = null;
 }
-<h2>Thank you for contacting us!</h2>
-<p>Your message has been successfully sent. We will get back to you soon.</p>
+
+<h2>Thank you for your message!</h2>
+<p>Your message has been successfully submitted. We will get back to you soon.</p>
+<a href="@Url.Action("index", "Home", new { area = "" })" class="btn btn-primary">Back to Home</a>
