@@ -21,10 +21,6 @@ namespace WTechStore.Areas.Dashboard.Controllers
             ViewBag.TotalCate=context.Categories.Count();
             return View();
         }
-        public IActionResult Dashboard()
-        {
-            var contacts = context.contacts.ToList(); 
-            return View(contacts); 
-        }
+      
     }
 }

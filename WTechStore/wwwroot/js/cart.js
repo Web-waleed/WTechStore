@@ -1,17 +1,15 @@
-// Retrieve cart items from localStorage or initialize an empty array
 let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-// Cache DOM elements
+// DOM elements
 const cartContainer = document.getElementById('cart-items').getElementsByTagName('tbody')[0];
-const clearCartBtn = document.getElementById('clear-cart');
 const totalPriceElement = document.getElementById('total-price-value');
+const clearCartBtn = document.getElementById('clear-cart');
 const checkoutButton = document.getElementById('checkout-btn');
 const checkoutSection = document.getElementById('checkout-section');
 const checkoutForm = document.getElementById('checkout-form');
 
-// Display cart items
 function displayCart() {
-    cartContainer.innerHTML = ''; // Clear current cart
+    cartContainer.innerHTML = '';
     let totalPrice = 0;
 
     if (cartItems.length === 0) {
@@ -21,6 +19,9 @@ function displayCart() {
     }
 
     cartItems.forEach(item => {
+        // Ensure quantity is initialized correctly
+        item.quantity = item.quantity || 1;
+
         const listItem = document.createElement('tr');
         const itemTotal = item.price * item.quantity;
         totalPrice += itemTotal;
@@ -41,21 +42,11 @@ function displayCart() {
     totalPriceElement.textContent = totalPrice.toFixed(2);
 }
 
-// Remove item from cart
-cartContainer.addEventListener('click', (event) => {
-    if (event.target.classList.contains('remove-btn')) {
-        const itemId = event.target.getAttribute('data-id');
-        cartItems = cartItems.filter(item => item.id !== itemId);
-        localStorage.setItem('cart', JSON.stringify(cartItems));
-        displayCart();
-    }
-});
-
-// Update item quantity
+// Event listener for quantity change
 cartContainer.addEventListener('input', (event) => {
     if (event.target.classList.contains('quantity-input')) {
         const itemId = event.target.getAttribute('data-id');
-        const newQuantity = parseInt(event.target.value);
+        const newQuantity = parseInt(event.target.value, 10);
 
         if (!isNaN(newQuantity) && newQuantity > 0) {
             const cartItem = cartItems.find(item => item.id === itemId);
@@ -65,12 +56,22 @@ cartContainer.addEventListener('input', (event) => {
                 displayCart();
             }
         } else {
-            event.target.value = 1; // Default to 1 if invalid
+            event.target.value = 1; // If invalid quantity, reset to 1
         }
     }
 });
 
-// Clear the entire cart
+// Event listener for remove button
+cartContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('remove-btn')) {
+        const itemId = event.target.getAttribute('data-id');
+        cartItems = cartItems.filter(item => item.id !== itemId);
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        displayCart();
+    }
+});
+
+// Clear cart button
 clearCartBtn.addEventListener('click', () => {
     Swal.fire({
         title: 'Are you sure?',
@@ -89,7 +90,7 @@ clearCartBtn.addEventListener('click', () => {
     });
 });
 
-// Checkout button functionality
+// Checkout button event
 checkoutButton.addEventListener('click', () => {
     if (cartItems.length > 0) {
         checkoutSection.style.display = 'block';
@@ -103,7 +104,7 @@ checkoutButton.addEventListener('click', () => {
     }
 });
 
-// Form submit event to send order to the server
+// Checkout form submission
 checkoutForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -115,7 +116,7 @@ checkoutForm.addEventListener('submit', (event) => {
 
     const formData = new FormData(checkoutForm);
 
-    // Add cart items to FormData
+    // Append cart data to form
     cartItems.forEach((item, index) => {
         formData.append(`items[${index}][id]`, item.id);
         formData.append(`items[${index}][name]`, item.name);
@@ -125,7 +126,7 @@ checkoutForm.addEventListener('submit', (event) => {
 
     formData.append('totalAmount', totalPriceElement.textContent);
 
-    // Send the form data to the server
+    // Simulate form submission
     fetch('/Cart/SubmitOrder', {
         method: 'POST',
         body: formData
@@ -135,35 +136,18 @@ checkoutForm.addEventListener('submit', (event) => {
             Swal.fire('Order placed!', 'Thank you for your order.', 'success');
         })
         .catch(error => {
-            Swal.fire('Order placed!', 'Thank you for your order.', 'success');
             console.error('Error:', error);
+            Swal.fire('Order placed!', 'Thank you for your order.', 'success');
         })
         .finally(() => {
-            // Clear the cart regardless of success or error
-            localStorage.removeItem('cart'); // Clear the local storage cart
-            cartItems = []; // Reset the cart items array
-            displayCart(); // Re-render the cart display
-            totalPriceElement.textContent = '0.00'; // Reset the total price
-            checkoutSection.style.display = 'none'; // Hide checkout section
-            checkoutForm.reset(); // Clear the form fields
+            localStorage.removeItem('cart');
+            cartItems = [];
+            displayCart();
+            totalPriceElement.textContent = '0.00';
+            checkoutSection.style.display = 'none';
+            checkoutForm.reset();
         });
 });
 
-// Initialize display cart
+// Initial call to display the cart
 displayCart();
-
-document.addEventListener('DOMContentLoaded', function () {
-    const creditCardRadio = document.getElementById('credit-card');
-    const cashRadio = document.getElementById('cash');
-    const creditCardInfo = document.getElementById('credit-card-info');
-
-    creditCardRadio.addEventListener('change', function () {
-        if (creditCardRadio.checked) {
-            creditCardInfo.style.display = 'block'; // Show card info
-        }
-    });
-
-    cashRadio.addEventListener('change', function () {
-        creditCardInfo.style.display = 'none'; // Hide card info
-    });
-});
