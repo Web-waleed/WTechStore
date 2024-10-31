@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text.Json; // For JsonSerializer
+
+using System;
 using System.Collections.Generic;
 using WTechStore.Models;
 
@@ -6,42 +10,81 @@ namespace WTechStore.Controllers
 {
     public class CartController : Controller
     {
-        // In-memory cart for demonstration; use session or database for production
-        private static List<Cart> CartItems = new List<Cart>();
+        private const string CartCookie = "Cart";
 
-        // Action to display the cart
         public IActionResult Index()
         {
-            return View(CartItems);
+            var cartItems = GetCartItemsFromCookies();
+            return View(cartItems);
         }
 
-        // Action to add an item to the cart
+        // Add product to cart
         [HttpPost]
-        public IActionResult AddToCart(string image, string productName, decimal price)
+        public IActionResult AddToCart(int productId, string productName, decimal price, string imageUrl)
         {
-            // Check if the item is already in the cart
-            var existingItem = CartItems.Find(item => item.ProductName == productName);
+            var cartItems = GetCartItemsFromCookies();
+            var existingItem = cartItems.Find(item => item.ProductId == productId);
 
             if (existingItem != null)
             {
-                // Update quantity if item already exists
                 existingItem.Quantity++;
             }
             else
             {
-                // Add new item to the cart
-                var newItem = new Cart
+                cartItems.Add(new CartItem
                 {
-                    CartId = CartItems.Count + 1, // Use a better ID generation in production
-                    Image = image,
+                    ProductId = productId,
                     ProductName = productName,
                     Price = price,
+                    ImageUrl = imageUrl,
                     Quantity = 1
-                };
-                CartItems.Add(newItem);
+                });
             }
 
-            return RedirectToAction("Index"); // Redirect to the cart page
+            SaveCartItemsToCookies(cartItems);
+            return RedirectToAction("Index");
+        }
+
+        // Remove item from cart
+        [HttpPost]
+        public IActionResult RemoveFromCart(int productId)
+        {
+            var cartItems = GetCartItemsFromCookies();
+            var itemToRemove = cartItems.Find(item => item.ProductId == productId);
+
+            if (itemToRemove != null)
+            {
+                cartItems.Remove(itemToRemove);
+                SaveCartItemsToCookies(cartItems);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // Clear cart
+        [HttpPost]
+        public IActionResult ClearCart()
+        {
+            Response.Cookies.Delete(CartCookie);
+            return RedirectToAction("Index");
+        }
+
+        // Get cart items from cookies
+        private List<CartItem>? GetCartItemsFromCookies()
+        {
+            var cookie = Request.Cookies[CartCookie];
+            // Deserialize using Newtonsoft.Json
+            return string.IsNullOrEmpty(cookie)
+                ? new List<CartItem>()
+                : JsonConvert.DeserializeObject<List<CartItem>>(cookie);
+        }
+
+        // Save cart items to cookies
+        private void SaveCartItemsToCookies(List<CartItem> cartItems)
+        {
+            // Serialize using Newtonsoft.Json
+            var cookieValue = JsonConvert.SerializeObject(cartItems);
+            Response.Cookies.Append(CartCookie, cookieValue, new CookieOptions { MaxAge = TimeSpan.FromDays(30) });
         }
     }
 }

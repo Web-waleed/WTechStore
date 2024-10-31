@@ -12,8 +12,8 @@ using WTechStore.Data;
 namespace WTechStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241018153241_hgjuk")]
-    partial class hgjuk
+    [Migration("20241031162439_kjhgfd")]
+    partial class kjhgfd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,20 +158,23 @@ namespace WTechStore.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WTechStore.Models.Cart", b =>
+            modelBuilder.Entity("WTechStore.Models.CartItems", b =>
                 {
-                    b.Property<int>("CartId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -180,9 +183,9 @@ namespace WTechStore.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId");
+                    b.HasKey("Id");
 
-                    b.ToTable("carts");
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("WTechStore.Models.Category", b =>
@@ -243,10 +246,6 @@ namespace WTechStore.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedbackId"));
-
-                    b.Property<string>("Active")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FeedbackName")
                         .IsRequired()

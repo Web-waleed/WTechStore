@@ -16,7 +16,7 @@ namespace WTechStore.Data
         public DbSet<Feedback> feedbacks { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Contact>contacts { get; set; }
-        public DbSet<Cart> carts { get; set; }
+        public DbSet<Models.CartItem> CartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 

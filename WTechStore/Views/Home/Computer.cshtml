@@ -41,7 +41,11 @@
                                     <p>Price: $@item.ProductPrice</p>
                                 </a>
                                 <button class="wishlist-btn">Add to Wishlist</button>
-                                <button class="cart-btn">Add to Cart</button>
+                                <button class="cart-btn">
+                                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@item.ProductId">
+                                        Add to Cart
+                                    </a>
+                                </button>
                             </div>
                         }
                     </div>
