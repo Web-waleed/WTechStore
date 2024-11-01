@@ -12,6 +12,7 @@
             <th>Address</th>
             <th>Order Date</th>
             <th>Products</th>
+            <th>Total Price</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -28,8 +29,14 @@
                 <td>
                     @foreach (var product in order.Products)
                     {
-                        <div>@product.ProductName <br> Quantity: @product.Quantity</div>
+                        <div>@product.ProductName <br> Quantity: @product.Quantity<br> Price: @product.Price.ToString("C")</div>
                     }
+                </td>
+                <td>
+                    @{
+                        var totalPrice = order.Products.Sum(p => p.Price * p.Quantity);
+                    }
+                    @totalPrice.ToString("C")
                 </td>
                 <td>
                     <form asp-action="DeleteOrder" method="post">

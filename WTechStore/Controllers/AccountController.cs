@@ -61,6 +61,7 @@ namespace WTechStore.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+            
             return View();
         }
         [HttpPost]
@@ -85,6 +86,11 @@ namespace WTechStore.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+        public IActionResult UserStatistics()
+        {
+            ViewBag.TotalUsers = userManager.Users.Count();  // Get the total number of users
+            return View();  // Update this to redirect to the appropriate view
         }
         #endregion
 

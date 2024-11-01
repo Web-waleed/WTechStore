@@ -118,19 +118,20 @@
                                 </ul>
                             </div>
                         </li>
-                        <ul class="list-group list-group-bordered">
-                            <hr></hr>
-                            <li class="list-group-item">
-                                <a asp-action="Messages" asp-controller="Contacts" >
+                        <ul class="list-group list-group-bordered" style="border: 1px solid #ddd; border-radius: 5px; width: 250px; margin: 0 auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <hr style="border-top: 1px solid #ddd; margin: 0;">
+                            <li class="list-group-item" style="padding: 15px; font-weight: bold;">
+                                <a asp-action="Messages" asp-controller="Contacts" style="text-decoration: none; color: #007bff; transition: color 0.3s;">
                                     Contact and Feedback
                                 </a>
                             </li>
-                            <li class="list-group-item">
-                                <a asp-action="Orders" asp-controller="OrderDetails">
+                            <li class="list-group-item" style="padding: 15px; font-weight: bold;">
+                                <a asp-action="Orders" asp-controller="OrderDetails" style="text-decoration: none; color: #007bff; transition: color 0.3s;">
                                     Orders Details
                                 </a>
                             </li>
                         </ul>
+
                        
                         
                     </ul>
@@ -201,18 +202,28 @@
                                    
                                 </ul>
                             </li>
-                            <ul>
-                                <li>
+                            <ul style="list-style-type: none; padding: 0; margin: 0; display: flex; background-color: #f8f9fa; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                                <li style="margin-right: 20px;">
                                     <a class="nav-link"
-                                       data-bs-toggle="dropdown"
-                                       href="#"
-                                       aria-expanded="false">
-                                    <a asp-action="Index" asp-controller="Home" asp-area="">Home</a>
+                                       asp-action="Index" asp-controller="Home" asp-area=""
+                                       
+                                       
+                                      
+                                       style="text-decoration: none; color: #007bff; padding: 10px; display: block; border-radius: 5px; transition: background-color 0.3s;">
+                                        Home
+                                    </a>
                                 </li>
-                                <li> 
-                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account" asp-area="">Logout</a>
-                                    </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                       asp-action="Logout"
+                                       asp-controller="Account"
+                                       asp-area=""
+                                       style="text-decoration: none; color: #dc3545; padding: 10px; display: block; border-radius: 5px; transition: background-color 0.3s;">
+                                        Logout
+                                    </a>
+                                </li>
                             </ul>
+
                            
                          
                        

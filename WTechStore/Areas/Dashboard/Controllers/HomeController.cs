@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WTechStore.Data;
+using WTechStore.Models.ViewModels;
 
 namespace WTechStore.Areas.Dashboard.Controllers
 {
@@ -10,15 +12,19 @@ namespace WTechStore.Areas.Dashboard.Controllers
     public class HomeController : Controller
     {
         private AppDbContext context;
-        public HomeController(AppDbContext context)
+        private UserManager<ApplicationUser> userManager;
+        public HomeController(AppDbContext context , UserManager<ApplicationUser> userManager)
         {
             this.context = context;
+            this.userManager = userManager;
         }
-       
-        public IActionResult Index()
+   
+        public async Task<IActionResult> Index()
         {
-            ViewBag.TotalProducts=context.products.Count();
-            ViewBag.TotalCate=context.Categories.Count();
+            ViewBag.TotalUsers = await userManager.Users.CountAsync();
+            ViewBag.TotalProducts= await context.products.CountAsync();
+            ViewBag.TotalCate= await context.Categories.CountAsync();
+            
             return View();
         }
       

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WTechStore.Data;
 using WTechStore.Models;
 
-[Authorize(Roles = "admin")]
+[Authorize]
 [Area("Dashboard")]
 public class ContactsController : Controller
 {
@@ -16,45 +16,45 @@ public class ContactsController : Controller
         _context = context;
     }
 
-    // Handles form submission and adds contact message to the database
+    
     [HttpPost]
     public async Task<IActionResult> Index(Contact contact)
     {
-        if (ModelState.IsValid)  // Validate the form data
+        if (ModelState.IsValid)  
         {
-            _context.contacts.Add(contact);  // Add the contact message to the database
-            await _context.SaveChangesAsync();  // Save changes asynchronously
-            return RedirectToAction(nameof(Success));  // Redirect to the Success page after submission
+            _context.contacts.Add(contact);  
+            await _context.SaveChangesAsync();  
+            return RedirectToAction(nameof(Success));  
         }
 
-        return View(contact);  // If invalid, return the form with validation errors
+        return View(contact);  
     }
 
-    // Displays a list of all contact messages
+   
     public async Task<IActionResult> Messages()
     {
-        var contacts = await _context.contacts.ToListAsync();  // Fetch all contact messages from the database
-        return View(contacts);  // Return the messages to the view
+        var contacts = await _context.contacts.ToListAsync();  
+        return View(contacts); 
     }
 
-    // Handles deleting a contact message by ID
+  
     public async Task<IActionResult> Delete(int id)
     {
-        var contact = await _context.contacts.FindAsync(id);  // Find the contact by ID
+        var contact = await _context.contacts.FindAsync(id); 
         if (contact == null)
         {
-            return NotFound();  // If no contact found, return a 404
+            return NotFound();  
         }
 
-        _context.contacts.Remove(contact);  // Remove the contact message
-        await _context.SaveChangesAsync();  // Save changes asynchronously
+        _context.contacts.Remove(contact);  
+        await _context.SaveChangesAsync();  
 
-        return RedirectToAction(nameof(Messages));  // Redirect back to the list of messages after deletion
+        return RedirectToAction(nameof(Messages));  
     }
 
-    // Shows a success page after form submission
+    
     public IActionResult Success()
     {
-        return View();  // Return the Success view after submission
+        return View();  
     }
 }
