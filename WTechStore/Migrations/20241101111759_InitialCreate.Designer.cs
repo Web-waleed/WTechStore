@@ -12,8 +12,8 @@ using WTechStore.Data;
 namespace WTechStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241031183418_jfhf")]
-    partial class jfhf
+    [Migration("20241101111759_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -260,13 +260,13 @@ namespace WTechStore.Migrations
                     b.ToTable("feedbacks");
                 });
 
-            modelBuilder.Entity("WTechStore.Models.Order", b =>
+            modelBuilder.Entity("WTechStore.Models.OrderProduct", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -280,9 +280,6 @@ namespace WTechStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -291,37 +288,9 @@ namespace WTechStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("WTechStore.Models.OrderItem", b =>
-                {
-                    b.Property<int>("OrderItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemId"));
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderItemId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItems");
+                    b.ToTable("orderProducts");
                 });
 
             modelBuilder.Entity("WTechStore.Models.Slider", b =>
@@ -541,17 +510,6 @@ namespace WTechStore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WTechStore.Models.OrderItem", b =>
-                {
-                    b.HasOne("WTechStore.Models.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("WTechStore.Models.product", b =>
                 {
                     b.HasOne("WTechStore.Models.Category", "Category")
@@ -566,11 +524,6 @@ namespace WTechStore.Migrations
             modelBuilder.Entity("WTechStore.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("WTechStore.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "OrderConfirmation";
+}
+
+<h1>Order Confirmation</h1>
+
+@if (TempData["ConfirmationMessage"] != null)
+{
+    <p>@TempData["ConfirmationMessage"]</p>
+}

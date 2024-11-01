@@ -1,15 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Text.Json; // For JsonSerializer
+using System.Text.Json; 
 
 using System;
 using System.Collections.Generic;
 using WTechStore.Models;
+using Microsoft.EntityFrameworkCore;
+using WTechStore.Models.ViewModels;
+using WTechStore.Data;
 
 namespace WTechStore.Controllers
 {
     public class CartController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public CartController(AppDbContext context)
+        {
+            _context = context; 
+        }
         private const string CartCookie = "Cart";
 
         public IActionResult Index()
@@ -18,7 +27,7 @@ namespace WTechStore.Controllers
             return View(cartItems);
         }
 
-        // Add product to cart
+        
         [HttpPost]
         public IActionResult AddToCart(int productId, string productName, decimal price, string imageUrl)
         {
@@ -42,10 +51,10 @@ namespace WTechStore.Controllers
             }
 
             SaveCartItemsToCookies(cartItems);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Cart"); 
         }
 
-        // Remove item from cart
+       
         [HttpPost]
         public IActionResult RemoveFromCart(int productId)
         {
@@ -61,28 +70,88 @@ namespace WTechStore.Controllers
             return RedirectToAction("Index");
         }
 
-        // Clear cart
+       
         [HttpPost]
         public IActionResult ClearCart()
         {
             Response.Cookies.Delete(CartCookie);
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult UpdateQuantity(int productId, int quantity)
+        {
+            
+            var cartItems = GetCartItemsFromCookies(); 
 
-        // Get cart items from cookies
+            
+            var itemToUpdate = cartItems.FirstOrDefault(item => item.ProductId == productId);
+
+          
+            if (itemToUpdate != null && quantity > 0)
+            {
+                itemToUpdate.Quantity = quantity;
+                SaveCartItemsToCookies(cartItems); 
+            }
+
+            
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Checkout()
+        {
+            
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SubmitOrder(OrderViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var order = new OrderProduct
+                {
+                    FullName = model.FullName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    Address = model.Address,
+                    PaymentMethod = model.PaymentMethod,
+                    OrderDate = DateTime.Now
+                };
+
+                try
+                {
+                    _context.orderProducts.Add(order);
+                    _context.SaveChanges(); 
+
+                    TempData["ConfirmationMessage"] = "Thank you! Your order has been placed successfully.";
+                    return RedirectToAction("OrderConfirmation");
+                }
+                catch (Exception ex)
+                {
+                    
+                    Console.WriteLine($"Error saving order: {ex.Message}");
+                }
+            }
+
+            return View(model);
+        }
+
+        public IActionResult OrderConfirmation()
+        {
+            return View();
+        }
+        
         private List<CartItem>? GetCartItemsFromCookies()
         {
             var cookie = Request.Cookies[CartCookie];
-            // Deserialize using Newtonsoft.Json
+           
             return string.IsNullOrEmpty(cookie)
                 ? new List<CartItem>()
                 : JsonConvert.DeserializeObject<List<CartItem>>(cookie);
         }
 
-        // Save cart items to cookies
         private void SaveCartItemsToCookies(List<CartItem> cartItems)
         {
-            // Serialize using Newtonsoft.Json
+            
             var cookieValue = JsonConvert.SerializeObject(cartItems);
             Response.Cookies.Append(CartCookie, cookieValue, new CookieOptions { MaxAge = TimeSpan.FromDays(30) });
         }

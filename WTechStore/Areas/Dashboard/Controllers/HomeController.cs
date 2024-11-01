@@ -6,7 +6,7 @@ using WTechStore.Data;
 namespace WTechStore.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
-    [Authorize(Roles ="admin")]
+    [Authorize(Roles = "admin")]
     public class HomeController : Controller
     {
         private AppDbContext context;

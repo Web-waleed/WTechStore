@@ -5,7 +5,7 @@
 namespace WTechStore.Migrations
 {
     /// <inheritdoc />
-    public partial class jfhf : Migration
+    public partial class hgyutj : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

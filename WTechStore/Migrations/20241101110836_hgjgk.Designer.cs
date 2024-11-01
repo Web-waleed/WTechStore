@@ -12,8 +12,8 @@ using WTechStore.Data;
 namespace WTechStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241031162439_kjhgfd")]
-    partial class kjhgfd
+    [Migration("20241101110836_hgjgk")]
+    partial class hgjgk
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,7 +158,7 @@ namespace WTechStore.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WTechStore.Models.CartItems", b =>
+            modelBuilder.Entity("WTechStore.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -293,35 +293,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("WTechStore.Models.OrderItem", b =>
-                {
-                    b.Property<int>("OrderItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemId"));
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderItemId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItems");
+                    b.ToTable("orders");
                 });
 
             modelBuilder.Entity("WTechStore.Models.Slider", b =>
@@ -541,17 +513,6 @@ namespace WTechStore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WTechStore.Models.OrderItem", b =>
-                {
-                    b.HasOne("WTechStore.Models.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("WTechStore.Models.product", b =>
                 {
                     b.HasOne("WTechStore.Models.Category", "Category")
@@ -566,11 +527,6 @@ namespace WTechStore.Migrations
             modelBuilder.Entity("WTechStore.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("WTechStore.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

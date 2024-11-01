@@ -42,9 +42,12 @@
                                 </a>
                                 <button class="wishlist-btn">Add to Wishlist</button>
                                 <button class="cart-btn">
-                                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@item.ProductId">
-                                        Add to Cart
-                                    </a>
+                                    <form asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@item.ProductId" method="post">
+                                        <input type="hidden" name="productName" value="@item.ProductName" />
+                                        <input type="hidden" name="price" value="@item.ProductPrice" />
+                                        <input type="hidden" name="imageUrl" value="@item.ProductIMg" />
+                                        <button type="submit">Add to Cart</button>
+                                    </form>
                                 </button>
                             </div>
                         }

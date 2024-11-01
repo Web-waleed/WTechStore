@@ -6,7 +6,7 @@ using WTechStore.Models.ViewModels;
 
 namespace WTechStore.Controllers
 {
-    [Authorize(Roles ="admin")]
+   
     public class AccountController : Controller
     {
         #region Configuration
