@@ -24,12 +24,23 @@ namespace WTechStore.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.WishlistCount = GetWishlistCount();
             var cartItems = GetCartItemsFromCookies();
             ViewBag.CartItemCount = GetCartItemCount();
             return View(cartItems);
         }
 
-        
+        public int GetWishlistCount()
+        {
+            var cookie = Request.Cookies["Wishlist"];
+            if (string.IsNullOrEmpty(cookie))
+            {
+                return 0; 
+            }
+
+            var wishlistItems = JsonConvert.DeserializeObject<List<WishlistItem>>(cookie);
+            return wishlistItems.Count;
+        }
         [HttpPost]
         public IActionResult AddToCart(int productId, string productName, decimal price, string imageUrl)
         {
@@ -59,7 +70,7 @@ namespace WTechStore.Controllers
         public int GetCartItemCount()
         {
             var cartItems = GetCartItemsFromCookies();
-            return cartItems.Sum(item => item.Quantity); // Summing up quantities of all items
+            return cartItems.Sum(item => item.Quantity); 
         }
         [HttpPost]
         public IActionResult RemoveFromCart(int productId)

@@ -18,6 +18,7 @@ namespace WTechStore.Data
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<OrderProduct> orderProducts { get; set; }
         public DbSet<ProductItem>productItems { get; set; }
+        public DbSet<WishlistItem> wishItems { get; set; }
        
 
 

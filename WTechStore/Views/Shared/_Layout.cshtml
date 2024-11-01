@@ -121,9 +121,9 @@ Gaming innovation" />
                                         <a class="nav-link" asp-action="Index" asp-controller="Home">Contact Us</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link wishlist-icon" asp-action="WishList" asp-controller="Home">
+                                        <a class="nav-link wishlist-icon" asp-action="Index" asp-controller="Wishlists">
                                             <i class="fas fa-heart"></i>
-                                            <span id="wishlist-count">0</span>
+                                            <span >@ViewBag.WishlistCount</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">

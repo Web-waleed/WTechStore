@@ -1,5 +1,4 @@
-﻿@model IEnumerable<WTechStore.Models.product>
-
+﻿@model IEnumerable<WTechStore.Models.product> 
 @{
     ViewData["Title"] = "Computer";
 }
@@ -10,9 +9,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="titlepage">
-
-                    <div style="background-color: #4843a3; border-radius:10px  ; font-size: larger; font-weight: bolder;" class="p-3 mb-2 bg text-white">
-                        <img src="" alt=""> 
+                    <div style="background-color: #4843a3; border-radius:10px; font-size: larger; font-weight: bolder;" class="p-3 mb-2 bg text-white">
+                        <h2>Product Listings</h2> <!-- Add a title or image as needed -->
                     </div>
                 </div>
             </div>
@@ -24,9 +22,9 @@
                         <button class="nav-link">All</button>
                     </li>
                     <li class="nav-item" data-cat=".devices">
-                        <button class="nav-link">devices</button>
+                        <button class="nav-link">Devices</button>
                     </li>
-                    <li class="nav-item" data-cat=".Accessories">
+                    <li class="nav-item" data-cat=".accessories"> <!-- Correct casing -->
                         <button class="nav-link">Accessories</button>
                     </li>
                 </ul>
@@ -34,21 +32,26 @@
                     <div class="row">
                         @foreach (var item in Model) 
                         {
-                            <div class="col-md-4 product all @item.ProductType" data-cat="devices" data-id="@item.ProductId">
+                            <div class="col-md-4 product all @item.ProductType" data-cat="@item.ProductType" data-id="@item.ProductId">
                                 <a asp-action="ProductDetails" asp-controller="Home" asp-route-id="@item.ProductId">
                                     <img src="@item.ProductIMg" alt="@item.ProductName" />
                                     <h2>@item.ProductName</h2>
                                     <p>Price: $@item.ProductPrice</p>
                                 </a>
-                                <button class="wishlist-btn">Add to Wishlist</button>
-                               
-                                    <form asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@item.ProductId" method="post">
-                                        <input type="hidden" name="productName" value="@item.ProductName" />
-                                        <input type="hidden" name="price" value="@item.ProductPrice" />
-                                        <input type="hidden" name="imageUrl" value="@item.ProductIMg" />
-                                        <button type="submit">Add to Cart</button>
-                                    </form>
-                                
+                                <form asp-action="AddToWishlist" asp-controller="Wishlists" method="post">
+                                    <input type="hidden" name="productId" value="@item.ProductId" /> <!-- Add ProductId -->
+                                    <input type="hidden" name="productName" value="@item.ProductName" />
+                                    <input type="hidden" name="price" value="@item.ProductPrice" />
+                                    <input type="hidden" name="imageUrl" value="@item.ProductIMg" />
+                                    <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                                </form>
+                                <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                    <input type="hidden" name="productId" value="@item.ProductId" /> <!-- Add ProductId -->
+                                    <input type="hidden" name="productName" value="@item.ProductName" />
+                                    <input type="hidden" name="price" value="@item.ProductPrice" />
+                                    <input type="hidden" name="imageUrl" value="@item.ProductIMg" />
+                                    <button type="submit" class="btn btn-secondary">Add to Cart</button>
+                                </form>
                             </div>
                         }
                     </div>
@@ -58,27 +61,28 @@
     </div>
 </div>
 <!-- end products -->
-    <script>
-        $(document).ready(function () {
-            // When a category button is clicked
-            $('.nav-item').on('click', function () {
-                // Get the category to filter
-                var selectedCategory = $(this).attr('data-cat');
 
-                // Remove 'activen' class from all buttons and add it to the clicked one
-                $('.nav-item').removeClass('activen');
-                $(this).addClass('activen');
+<script>
+    $(document).ready(function () {
+        // When a category button is clicked
+        $('.nav-item').on('click', function () {
+            // Get the category to filter
+            var selectedCategory = $(this).attr('data-cat');
 
-                // If 'All' is selected, show all products
-                if (selectedCategory === '.all') {
-                    $('.product').show();
-                } else {
-                    // Hide all products
-                    $('.product').hide();
+            // Remove 'activen' class from all buttons and add it to the clicked one
+            $('.nav-item').removeClass('activen');
+            $(this).addClass('activen');
 
-                    // Show products that match the selected category
-                    $('.product' + selectedCategory).show();
-                }
-            });
+            // If 'All' is selected, show all products
+            if (selectedCategory === '.all') {
+                $('.product').show();
+            } else {
+                // Hide all products
+                $('.product').hide();
+
+                // Show products that match the selected category
+                $('.product' + selectedCategory).show();
+            }
         });
+    });
 </script>

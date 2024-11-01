@@ -11,6 +11,7 @@ namespace WTechStore.Controllers
     {
         private AppDbContext db;
         private const string CartCookie = "Cart";
+       
 
         public HomeController(AppDbContext db)
         {
@@ -20,6 +21,7 @@ namespace WTechStore.Controllers
         public IActionResult Index()
         {
             ViewBag.CartItemCount = GetCartItemCount();
+            ViewBag.WishlistCount = GetWishlistCount();
             CategoryProductDataModel model= new CategoryProductDataModel
             {
                 categories = db.Categories.OrderByDescending(x => x.CategoryId).ToList(),
@@ -32,6 +34,7 @@ namespace WTechStore.Controllers
         public IActionResult ProductDetails(int id) 
         {
             ViewBag.CartItemCount = GetCartItemCount();
+            ViewBag.WishlistCount = GetWishlistCount();
             var data = db.products.Find(id);
             if (data == null) { return RedirectToAction("Index"); }
             return View(data);
@@ -39,6 +42,7 @@ namespace WTechStore.Controllers
         public IActionResult Computer(int? id)
         {
             ViewBag.CartItemCount = GetCartItemCount();
+            ViewBag.WishlistCount = GetWishlistCount();
             var products = db.products.ToList().Where(x=>x.CategoryId == id);
             return View(products);
         }
@@ -47,11 +51,22 @@ namespace WTechStore.Controllers
             var cookie = Request.Cookies["Cart"];
             if (string.IsNullOrEmpty(cookie))
             {
-                return 0; // No items in the cart
+                return 0; 
             }
 
             var cartItems = JsonConvert.DeserializeObject<List<CartItem>>(cookie);
             return cartItems.Sum(item => item.Quantity);
+        }
+        public int GetWishlistCount()
+        {
+            var cookie = Request.Cookies["Wishlist"];
+            if (string.IsNullOrEmpty(cookie))
+            {
+                return 0; 
+            }
+
+            var wishlistItems = JsonConvert.DeserializeObject<List<WishlistItem>>(cookie);
+            return wishlistItems.Count;
         }
         public IActionResult Cart() {
              

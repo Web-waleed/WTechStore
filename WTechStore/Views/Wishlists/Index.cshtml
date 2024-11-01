@@ -1,14 +1,18 @@
-﻿@* 
+﻿@model List<WTechStore.Models.WishlistItem>
 
 @{
     ViewData["Title"] = "WishList";
-    Layout = null;
+    Layout = null; // Change to your layout if needed
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- [Your existing head content] -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <title>Your Wishlist</title>
 </head>
 <body>
     <section class="wishlist container">
@@ -32,9 +36,18 @@
                             <td>@item.ProductName</td>
                             <td>@item.Price.ToString("C")</td>
                             <td>
-                                <form asp-action="RemoveFromWishlist" method="post">
+                                <form asp-action="RemoveFromWishlist" method="post" style="display:inline;">
                                     <input type="hidden" name="productId" value="@item.Id" />
                                     <button type="submit" class="btn btn-danger">Remove</button>
+                                </form>
+
+                                <!-- Add to Cart Form -->
+                                <form asp-action="AddToCart" asp-controller="Cart" method="post" style="display:inline;">
+                                    <input type="hidden" name="productId" value="@item.Id" /> <!-- Ensure you have the Product ID -->
+                                    <input type="hidden" name="productName" value="@item.ProductName" />
+                                    <input type="hidden" name="price" value="@item.Price" />
+                                    <input type="hidden" name="imageUrl" value="@item.ImageUrl" />
+                                    <button type="submit" class="btn btn-primary">Add to Cart</button>
                                 </form>
                             </td>
                         </tr>
@@ -48,7 +61,7 @@
                 }
             </tbody>
         </table>
-        <a asp-action="Index" class="btn btn-primary">Back to Products</a>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back to Products</a>
     </section>
 </body>
-</html> *@
+</html>
