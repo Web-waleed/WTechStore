@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Build.Evaluation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WTechStore.Models
@@ -18,6 +19,19 @@ namespace WTechStore.Models
         public string Address { get; set; }
         public string PaymentMethod { get; set; }
         public DateTime OrderDate { get; set; }
+        public List<ProductItem> Products { get; set; } = new List<ProductItem>();
 
+    }
+    public class ProductItem
+    {
+        public int Id { get; set; }
+        public int OrderProductId { get; set; } 
+        public string ProductName { get; set; }
+        public decimal Price { get; set; }
+        public string ImageUrl { get; set; }
+        public int Quantity { get; set; }
+
+      
+        public OrderProduct OrderProduct { get; set; }
     }
 }

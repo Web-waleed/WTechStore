@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using WTechStore.Data;
 using WTechStore.Models;
@@ -9,6 +10,7 @@ namespace WTechStore.Controllers
     public class HomeController : Controller
     {
         private AppDbContext db;
+        private const string CartCookie = "Cart";
 
         public HomeController(AppDbContext db)
         {
@@ -17,31 +19,45 @@ namespace WTechStore.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.CartItemCount = GetCartItemCount();
             CategoryProductDataModel model= new CategoryProductDataModel
             {
                 categories = db.Categories.OrderByDescending(x => x.CategoryId).ToList(),
                 products = db.products.OrderByDescending(x => x.ProductId).ToList()
-            
+             
             };
             return View(model);
         }
         
         public IActionResult ProductDetails(int id) 
-        { 
-           
+        {
+            ViewBag.CartItemCount = GetCartItemCount();
             var data = db.products.Find(id);
             if (data == null) { return RedirectToAction("Index"); }
             return View(data);
         }
         public IActionResult Computer(int? id)
         {
+            ViewBag.CartItemCount = GetCartItemCount();
             var products = db.products.ToList().Where(x=>x.CategoryId == id);
             return View(products);
         }
-        public IActionResult Cart() { 
-        return View();  
+        public int GetCartItemCount()
+        {
+            var cookie = Request.Cookies["Cart"];
+            if (string.IsNullOrEmpty(cookie))
+            {
+                return 0; // No items in the cart
+            }
+
+            var cartItems = JsonConvert.DeserializeObject<List<CartItem>>(cookie);
+            return cartItems.Sum(item => item.Quantity);
         }
-        
+        public IActionResult Cart() {
+             
+            return View();
+        }
+       
         public IActionResult WishList() { 
         return View();  
         }

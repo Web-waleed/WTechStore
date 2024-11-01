@@ -8,6 +8,7 @@ using WTechStore.Models;
 using Microsoft.EntityFrameworkCore;
 using WTechStore.Models.ViewModels;
 using WTechStore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WTechStore.Controllers
 {
@@ -24,6 +25,7 @@ namespace WTechStore.Controllers
         public IActionResult Index()
         {
             var cartItems = GetCartItemsFromCookies();
+            ViewBag.CartItemCount = GetCartItemCount();
             return View(cartItems);
         }
 
@@ -54,7 +56,11 @@ namespace WTechStore.Controllers
             return RedirectToAction("Index", "Cart"); 
         }
 
-       
+        public int GetCartItemCount()
+        {
+            var cartItems = GetCartItemsFromCookies();
+            return cartItems.Sum(item => item.Quantity); // Summing up quantities of all items
+        }
         [HttpPost]
         public IActionResult RemoveFromCart(int productId)
         {
@@ -102,11 +108,13 @@ namespace WTechStore.Controllers
             
             return View();
         }
+        [Authorize]
         [HttpPost]
         public IActionResult SubmitOrder(OrderViewModel model)
         {
             if (ModelState.IsValid)
             {
+                // Create the order
                 var order = new OrderProduct
                 {
                     FullName = model.FullName,
@@ -117,24 +125,32 @@ namespace WTechStore.Controllers
                     OrderDate = DateTime.Now
                 };
 
-                try
+                // Get cart items from cookies and add each as a product to the order
+                var cartItems = GetCartItemsFromCookies();
+                foreach (var item in cartItems)
                 {
-                    _context.orderProducts.Add(order);
-                    _context.SaveChanges(); 
+                    var productItem = new ProductItem
+                    {
+                        ProductName = item.ProductName,
+                        Price = item.Price,
+                        ImageUrl = item.ImageUrl,
+                        Quantity = item.Quantity
+                    };
+                    order.Products.Add(productItem);
+                }
 
-                    TempData["ConfirmationMessage"] = "Thank you! Your order has been placed successfully.";
-                    return RedirectToAction("OrderConfirmation");
-                }
-                catch (Exception ex)
-                {
-                    
-                    Console.WriteLine($"Error saving order: {ex.Message}");
-                }
+                // Save order and products to the database
+                _context.orderProducts.Add(order);
+                _context.SaveChanges();
+
+                TempData["ConfirmationMessage"] = "Thank you! Your order has been placed successfully.";
+                return RedirectToAction("OrderConfirmation");
             }
 
+            // If validation fails, return to the same view with the model
             return View(model);
         }
-
+        [Authorize]
         public IActionResult OrderConfirmation()
         {
             return View();

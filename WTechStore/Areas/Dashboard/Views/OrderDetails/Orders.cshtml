@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WTechStore.Models.ViewModels.OrderDetailViewModel>
+
+<h2>Orders</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Order Date</th>
+            <th>Products</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.FullName</td>
+                <td>@order.Email</td>
+                <td>@order.PhoneNumber</td>
+                <td>@order.Address</td>
+                <td>@order.OrderDate</td>
+                <td>
+                    @foreach (var product in order.Products)
+                    {
+                        <div>@product.ProductName <br> Quantity: @product.Quantity</div>
+                    }
+                </td>
+                <td>
+                    <form asp-action="DeleteOrder" method="post">
+                        <input type="hidden" name="orderId" value="@order.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

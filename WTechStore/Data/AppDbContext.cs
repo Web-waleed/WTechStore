@@ -17,6 +17,7 @@ namespace WTechStore.Data
         public DbSet<Contact>contacts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<OrderProduct> orderProducts { get; set; }
+        public DbSet<ProductItem>productItems { get; set; }
        
 
 

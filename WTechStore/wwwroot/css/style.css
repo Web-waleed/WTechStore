@@ -1319,6 +1319,13 @@ ul.social_icon li a:hover {
           border: none;
           cursor: pointer;
         }
+            button .cart-btn {
+                padding: 5px 10px;
+                background-color: #48ca95;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
         
         button:hover {
           background-color:#1d4e3a;
