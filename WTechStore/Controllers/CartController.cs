@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text.Json; 
-
 using System;
 using System.Collections.Generic;
 using WTechStore.Models;
@@ -125,7 +124,7 @@ namespace WTechStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Create the order
+                
                 var order = new OrderProduct
                 {
                     FullName = model.FullName,
@@ -136,7 +135,7 @@ namespace WTechStore.Controllers
                     OrderDate = DateTime.Now
                 };
 
-                // Get cart items from cookies and add each as a product to the order
+                
                 var cartItems = GetCartItemsFromCookies();
                 foreach (var item in cartItems)
                 {
@@ -150,7 +149,7 @@ namespace WTechStore.Controllers
                     order.Products.Add(productItem);
                 }
 
-                // Save order and products to the database
+                
                 _context.orderProducts.Add(order);
                 _context.SaveChanges();
 
@@ -158,7 +157,7 @@ namespace WTechStore.Controllers
                 return RedirectToAction("OrderConfirmation");
             }
 
-            // If validation fails, return to the same view with the model
+            
             return View(model);
         }
         [Authorize]
