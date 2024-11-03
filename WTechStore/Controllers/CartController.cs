@@ -14,13 +14,11 @@ namespace WTechStore.Controllers
     public class CartController : Controller
     {
         private readonly AppDbContext _context;
-
         public CartController(AppDbContext context)
         {
             _context = context; 
         }
         private const string CartCookie = "Cart";
-
         public IActionResult Index()
         {
             ViewBag.WishlistCount = GetWishlistCount();
@@ -28,7 +26,6 @@ namespace WTechStore.Controllers
             ViewBag.CartItemCount = GetCartItemCount();
             return View(cartItems);
         }
-
         public int GetWishlistCount()
         {
             var cookie = Request.Cookies["Wishlist"];
@@ -65,7 +62,6 @@ namespace WTechStore.Controllers
             SaveCartItemsToCookies(cartItems);
             return RedirectToAction("Index", "Cart"); 
         }
-
         public int GetCartItemCount()
         {
             var cartItems = GetCartItemsFromCookies();
@@ -85,8 +81,6 @@ namespace WTechStore.Controllers
 
             return RedirectToAction("Index");
         }
-
-       
         [HttpPost]
         public IActionResult ClearCart()
         {

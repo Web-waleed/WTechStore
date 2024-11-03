@@ -8,14 +8,12 @@ namespace WTechStore.Controllers
     public class WishlistsController : Controller
     {
         private const string WishlistCookie = "Wishlist";
-
         public IActionResult Index()
         {
             var wishlistItems = GetWishlistItemsFromCookies();
             ViewBag.WishlistCount = wishlistItems.Count;
             return View(wishlistItems); 
         }
-
         [HttpPost]
         public IActionResult AddToWishlist(int productId, string productName, decimal price, string imageUrl)
         {

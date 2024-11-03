@@ -6,7 +6,6 @@ using WTechStore.Models.ViewModels;
 
 namespace WTechStore.Controllers
 {
-   
     public class AccountController : Controller
     {
         #region Configuration

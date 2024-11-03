@@ -182,7 +182,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItems", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.Category", b =>
@@ -201,7 +201,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.Contact", b =>
@@ -233,7 +233,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("contacts");
+                    b.ToTable("contacts", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.Feedback", b =>
@@ -254,7 +254,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("FeedbackId");
 
-                    b.ToTable("feedbacks");
+                    b.ToTable("feedbacks", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.OrderProduct", b =>
@@ -290,7 +290,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("orderProducts");
+                    b.ToTable("orderProducts", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.ProductItem", b =>
@@ -322,7 +322,7 @@ namespace WTechStore.Migrations
 
                     b.HasIndex("OrderProductId");
 
-                    b.ToTable("productItems");
+                    b.ToTable("productItems", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.Slider", b =>
@@ -350,7 +350,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("SliderId");
 
-                    b.ToTable("Sliders");
+                    b.ToTable("Sliders", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.ViewModels.ApplicationUser", b =>
@@ -447,7 +447,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("wishItems");
+                    b.ToTable("wishItems", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.advertisement", b =>
@@ -478,7 +478,7 @@ namespace WTechStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("advertisements");
+                    b.ToTable("advertisements", (string)null);
                 });
 
             modelBuilder.Entity("WTechStore.Models.product", b =>
@@ -512,7 +512,7 @@ namespace WTechStore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("products");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

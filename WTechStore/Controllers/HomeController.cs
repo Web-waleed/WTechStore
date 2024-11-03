@@ -11,7 +11,6 @@ namespace WTechStore.Controllers
     {
         private AppDbContext db;
         private const string CartCookie = "Cart";
-       
 
         public HomeController(AppDbContext db)
         {
@@ -82,9 +81,6 @@ namespace WTechStore.Controllers
         public IActionResult Blog() {
             return View();
         }
-      
-
-
         public IActionResult Privacy()
         {
             return View();
