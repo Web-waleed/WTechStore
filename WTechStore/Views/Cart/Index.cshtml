@@ -280,20 +280,20 @@
             // Set up event listeners for each remove button
             document.querySelectorAll('.remove-product-button').forEach(button => {
                 button.addEventListener('click', function (event) {
-                    event.preventDefault(); // Prevent form submission
+                    event.preventDefault(); 
                     confirmRemove(this.dataset.productId, this.closest('form'));
                 });
             });
 
-            // Set up event listener for the clear cart button
+           
             document.querySelector('.btn-clear').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault(); 
                 confirmClearCart(this.closest('form'));
             });
 
             proceedCheckoutButton.addEventListener('click', function () {
-                document.getElementById('checkout-section').style.display = 'block'; // Show checkout form
-                window.scrollTo(0, document.body.scrollHeight); // Scroll to checkout section
+                document.getElementById('checkout-section').style.display = 'block';
+                window.scrollTo(0, document.body.scrollHeight); 
             });
         });
     </script>
