@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
 }
 @await Component.InvokeAsync("Slider")
-    <!-- three_box -->
+    <!-- Start Categories Section  -->
       <div class="three_box">
          <h1 style="font-weight: bolder;" class="container">Categories</h1>
     <div class="container">
@@ -21,17 +21,15 @@
 
                     </div>
                 </div>
-            
-           
             }
         </div>
          </div>
       </div>
-    <!-- three_box -->
+    <!-- End Categories Section -->
 
 <br>
-<!-- end products -->
-@await Component.InvokeAsync("advertisement")
-@await Component.InvokeAsync("Feedback")
+
+@await Component.InvokeAsync("advertisement") <!--advertisement Component-->
+@await Component.InvokeAsync("Feedback")<!--Feedback Component-->
  @await Component.InvokeAsync("Contact") 
 

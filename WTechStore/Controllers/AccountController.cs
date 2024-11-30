@@ -60,7 +60,6 @@ namespace WTechStore.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            
             return View();
         }
         [HttpPost]
