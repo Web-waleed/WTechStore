@@ -6,9 +6,9 @@ namespace WTechStore.Models
     public class Feedback 
     {
         public int FeedbackId { get; set; }
-        public String FeedbackName { get; set; }
+        public string FeedbackName { get; set; }
         [DataType(DataType.MultilineText)]
-        public String Review { get; set; }
+        public string Review { get; set; }
 
     }
 }
