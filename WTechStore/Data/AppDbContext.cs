@@ -14,10 +14,10 @@ namespace WTechStore.Data
         public DbSet<product> products { get; set; }
         public DbSet<Feedback> feedbacks { get; set; }
         public DbSet<Slider> Sliders { get; set; }
-        public DbSet<Contact>contacts { get; set; }
+        public DbSet<Contact> contacts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<OrderProduct> orderProducts { get; set; }
-        public DbSet<ProductItem>productItems { get; set; }
+        public DbSet<ProductItem> productItems { get; set; }
         public DbSet<WishlistItem> wishItems { get; set; }
        
 

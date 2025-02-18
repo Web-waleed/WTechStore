@@ -23,7 +23,7 @@ namespace WTechStore.Areas.Dashboard.Controllers
                 .Include(o => o.Products)
                 .Select(o => new OrderDetailViewModel
                 {
-                    Id = o.Id,  // Assuming Id is the primary key for the OrderProduct
+                    Id = o.Id, 
                     FullName = o.FullName,
                     Email = o.Email,
                     PhoneNumber = o.PhoneNumber,
@@ -50,13 +50,12 @@ namespace WTechStore.Areas.Dashboard.Controllers
 
             if (order != null)
             {
-                // Optionally, you may want to remove related order items if they exist
-                // _context.OrderItems.RemoveRange(order.OrderItems); // Uncomment if you have a relationship
+              
                 _context.orderProducts.Remove(order);
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Orders"); // Redirect back to the Orders view
+            return RedirectToAction("Orders"); 
         }
     }
 }
